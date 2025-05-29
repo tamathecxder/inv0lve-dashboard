@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { LineChart } from '@carbon/charts-svelte';
+	import RunningTaskCard from '$lib/components/RunningTaskCard.svelte';
+	import { LineChart, ScaleTypes, TickRotations, type ChartOptions } from '@carbon/charts-svelte';
 	import '@carbon/charts-svelte/styles.css';
-	// import options from './options';
-	// import data from './data';
 
 	const data: { group: string; date: string; value: number }[] = [
 		{
@@ -32,14 +31,14 @@
 		}
 	];
 
-	const options: any = {
+	const options: ChartOptions = {
 		title: 'Rotated ticks (line)',
 		axes: {
 			bottom: {
-				scaleType: 'time',
+				scaleType: ScaleTypes.TIME,
 				mapsTo: 'date',
 				ticks: {
-					rotation: 'always'
+					rotation: TickRotations.ALWAYS
 				}
 			},
 			left: {
@@ -49,10 +48,18 @@
 		legend: {
 			clickable: false
 		},
-		height: '400px'
+		height: '340px'
 	};
 </script>
 
-<div class="container">
-	<LineChart {data} {options} style="padding:2rem;" />
+<div class="grid grid-cols-12 gap-10">
+	<!-- Running Task -->
+	<RunningTaskCard class="col-span-3" />
+	<!-- ! Running Task -->
+	
+	<!-- Chart Section -->
+	<div class="col-span-9 bg-cloud flex flex-col rounded-lg">			
+		<LineChart {data} {options} style="padding:2rem;" />
+	</div>
+	<!-- ! Chart Section -->
 </div>

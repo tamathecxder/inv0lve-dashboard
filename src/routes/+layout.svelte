@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Header from '$lib/components/Header.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -32,9 +33,9 @@
 	]
 </script>
 
-<div class="flex min-h-screen flex-col p-4 lg:p-8">
+<div class="flex min-h-screen flex-col">
 	<div class="flex">
-		<aside class="flex-[1] p-4 border-r border-gray-300">
+		<aside class="flex-[1] p-4 border-r border-gray-100">
 			<div class="mb-16 flex flex-row items-center justify-start gap-4">
 				<img src="/assets/book-square.png" alt="logo" class="w-12" />
 				<h1 class="text-2xl font-bold">NUEGAS</h1>
@@ -52,9 +53,11 @@
 			</ul>
 		</aside>
 
-		<main class="relative flex-[6] bg-white">
+		<main class="flex-[6] p-8 bg-white">
+			<Header />
+			
 			{@render children()}
-			<footer class="absolute bottom-0 w-full bg-gray-300 p-4">footer</footer>
+			<footer class="mt-10 bottom-0 w-full bg-gray-300 p-4">footer</footer>
 		</main>
 	</div>
 </div>
