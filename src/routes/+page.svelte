@@ -3,10 +3,10 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
-        goto('/overview');
+        goto('/dashboard/overview');
     });
 </script>
 
 <svelte:head>
-    <title>Home</title>
+    <title>Dashboard</title>
 </svelte:head>
