@@ -38,7 +38,7 @@
 	</svg>
 
 	<!-- Teks di tengah -->
-	<div class="absolute text-lg font-bold text-white">
+	<div class="absolute text-lg font-bold text-hytam dark:text-white">
 		{percentage}%
 	</div>
 </div>
