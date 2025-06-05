@@ -1,63 +1,41 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import { requireAuth } from '$lib/utils/auth';
+	import { onMount } from 'svelte';
 	import '../../app.css';
-
+	import menu from '$lib/utils/menu';
+	
 	let { children } = $props();
+	let isReady: boolean = $state(false);
 
-	const menu: { name: string; href: string, icon: string }[] = [
-		{
-			name: 'Overview',
-			href: '/',
-			icon: '/assets/overview.svg',
-		},
-		{
-			name: 'Task',
-			href: '/Task',
-			icon: '/assets/task.svg',
-		},
-		{
-			name: 'Mentors',
-			href: '/mentors',
-			icon: '/assets/mentors.svg',
-		},
-		{
-			name: 'Message',
-			href: '/message',
-			icon: '/assets/message.svg',
-		},
-		{
-			name: 'Settings',
-			href: '/settings',
-			icon: '/assets/settings.svg',
-		},
-	]
+	onMount(async () => {
+		try {
+			await requireAuth();
+			isReady = true;
+		} catch {
+			// Do nothing
+		}
+	});
 </script>
 
-<div class="flex min-h-screen flex-col">
-	<div class="flex">
-		<aside class="flex-[1] p-4 border-r border-gray-100">
-			<div class="mb-16 flex flex-row items-center justify-start gap-4">
-				<img src="/assets/book-square.png" alt="logo" class="w-12" />
-				<h1 class="text-2xl font-bold">NUEGAS</h1>
-			</div>
+{#if isReady}
+	<div class="flex min-h-screen flex-col">
+		<div class="flex flex-col md:flex-row">
+			<Sidebar {menu} />
 
-			<ul class="flex flex-col gap-6">
-				{#each menu as item}
-					<li class="py-3 px-5 hover:bg-cloud rounded-lg cursor-pointer hover:py-5 hover:px-7 ease-in duration-300">
-						<a href={item.href} class="flex flex-row items-center gap-4 font-semibold text-secondary">
-							<img src={item.icon} alt={item.name} class="w-6" />
-							<span>{item.name}</span>
-						</a>
-					</li>
-				{/each}
-			</ul>
-		</aside>
+			<main
+				class="min-h-screen bg-[#FAFAFA] p-4 transition-colors duration-300 sm:p-8 md:flex-[6] dark:bg-gray-900"
+			>
+				<Header />
 
-		<main class="flex-[6] p-8 bg-white">
-			<Header />
-			
-			{@render children()}
-			<footer class="mt-10 bottom-0 w-full bg-gray-300 p-4">footer</footer>
-		</main>
+				{@render children()}
+				<footer
+					class="bottom-0 mt-10 w-full bg-gray-300 p-4 text-center text-sm transition-colors duration-300 dark:bg-gray-800 dark:text-gray-400"
+				>
+					footer
+				</footer>
+			</main>
+		</div>
 	</div>
-</div>
+{/if}
