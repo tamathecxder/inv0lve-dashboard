@@ -1,5 +1,8 @@
 <script lang="ts">
-	import RunningTaskCard from '$lib/components/RunningTaskCard.svelte';
+	import MentorCard from '$lib/components/MentorCard.svelte';
+import RunningTaskCard from '$lib/components/RunningTaskCard.svelte';
+	import TaskCard from '$lib/components/TaskCard.svelte';
+	import TitleWithSlider from '$lib/components/TitleWithSlider.svelte';
 	import { LineChart, ScaleTypes, TickRotations, type ChartOptions } from '@carbon/charts-svelte';
 	import '@carbon/charts-svelte/styles.css';
 
@@ -52,14 +55,34 @@
 	};
 </script>
 
-<div class="grid grid-cols-12 gap-10">
-	<!-- Running Task -->
-	<RunningTaskCard class="col-span-3" />
-	<!-- ! Running Task -->
-	
-	<!-- Chart Section -->
-	<div class="col-span-9 bg-cloud flex flex-col rounded-lg">			
-		<LineChart {data} {options} style="padding:2rem;" />
-	</div>
-	<!-- ! Chart Section -->
+<svelte:head>
+	<title>Overview</title>
+</svelte:head>
+
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <RunningTaskCard class="col-span-1 md:col-span-3" />
+    
+    <div class="col-span-1 md:col-span-9 bg-cloud dark:bg-hytam rounded-lg shadow-md p-4">
+        <LineChart {data} {options} />
+    </div>
+
+    <section class="col-span-1 md:col-span-12 mt-6">
+        <TitleWithSlider title="Monthly Mentors" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+            <MentorCard />
+            <MentorCard />
+            <MentorCard />
+        </div>
+    </section>
+
+    <section class="col-span-1 md:col-span-12 mt-6">
+        <TitleWithSlider title="Upcoming Tasks" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+            <TaskCard />
+            <TaskCard />
+            <TaskCard />
+        </div>
+    </section>
 </div>
