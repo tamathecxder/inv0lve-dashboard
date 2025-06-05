@@ -1,5 +1,5 @@
 import { goto } from "$app/navigation";
-import { apiClient } from "$lib/services/apiClient";
+import { apiClient } from "$lib/utils/apiClient";
 
 export function getAccessToken(): string | null {
 	if (typeof localStorage === 'undefined') return null; // safety check for SSR
